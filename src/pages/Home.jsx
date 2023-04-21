@@ -134,6 +134,49 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Reservations section */}
+            <div className="h-screen">
+                <div className="w-4/5 hfull">
+                    <form action="" className="text-white text-xl">
+                        <label htmlFor="date" className="text-white">Fecha <span className="text-red-500">*</span></label>
+                        <input type="date" />
+
+                        <label htmlFor="name">Nombre en la reserva</label>
+                        <input type="text" placeholder="John Smith" />
+                        
+                        <label htmlFor="dinners">Numero de personas</label>
+                        <div>
+                            <select name="dinners" id="dinners">
+                                <option value="1">1 persona</option>
+                                <option value="2">2 personas</option>
+                                <option value="3">3 a 5 personas</option>
+                                <option value="4">Mas de 5 personas</option>
+                            </select>
+                            <select name="kids" id="kids">
+                                <option value="1">0 niños</option>
+                                <option value="2">1 niño</option>
+                                <option value="3">2 niños</option>
+                                <option value="4">3 a 5 niños</option>
+                                <option value="5">Mas de 5 niños</option>
+                            </select>
+                        </div>
+                        <div>
+                            <select name="time" id="time">
+                                <option value="1">10:00 AM</option>
+                                <option value="2">11:00 AM</option>
+                                <option value="3">12:00 PM</option>
+                                <option value="4">1:00 PM</option>
+                            </select>
+                            <p>Table is vailable</p>
+                        </div>
+
+                        <div>
+                            <button>Reservar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     );
 }
