@@ -1,3 +1,5 @@
+import { Fade, Slide } from "react-awesome-reveal";
+
 // Images
 const gif = 'https://www.icegif.com/wp-content/uploads/2021/10/icegif-1130.gif';
 const friends = 'https://images.pexels.com/photos/2769753/pexels-photo-2769753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
@@ -27,14 +29,14 @@ const Home = () => {
                 <div className="flex justify-between h-full">
                     <div className="w-1/2 h-full grid grid-cols-2 gap-4">
                         <div className="grid grid-rows-3">
-                            <div className="row-span-2">
+                            <Fade direction="down" delay={300} className="row-span-2">
                                 <img className="w-full h-full rounded-2xl object-cover" src={friends} alt="" />
-                            </div>
+                            </Fade>
                         </div>
                         <div className="grid grid-rows-3">
-                            <div className="row-start-2 row-span-2">
+                            <Fade direction="down" delay={300}  className="row-start-2 row-span-2">
                                 <img className="w-full h-full rounded-2xl object-cover" src={taqueria} alt="" />
-                            </div>
+                            </Fade>
                         </div>
                     </div>
                     <div className="w-1/2 p-10">
