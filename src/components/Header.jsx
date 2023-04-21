@@ -12,16 +12,16 @@ const Header = () => {
                 </div>
                 <ul className="flex gap-20">
                     <li className="hover:text-orange-500 font-bold">
-                        <Link>Inicio</Link>
+                        <Link to="/">Inicio</Link>
                     </li>
                     <li className="hover:text-orange-500 font-bold">
-                        <Link>Menu</Link>
+                        <a href="#menu">Menu</a>
                     </li>
                     <li className="hover:text-orange-500 font-bold">
-                        <Link>Reservaciones</Link>
+                        <a href="#reservation">Reservaciones</a>
                     </li>
                     <li className="hover:text-orange-500 font-bold">
-                        <Link>Contacto</Link>
+                        <a href="#contact">Contacto</a>
                     </li>
                 </ul>
             </nav>
