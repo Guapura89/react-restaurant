@@ -1,5 +1,7 @@
 import { Fade, Zoom } from "react-awesome-reveal";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { addDoc, collection, getDocs } from "firebase/firestore";
+import {db} from '../firebase';
 
 // Images
 const gif = 'https://www.icegif.com/wp-content/uploads/2021/10/icegif-1130.gif';
@@ -11,12 +13,66 @@ const menu3 = 'https://images.pexels.com/photos/1089932/pexels-photo-1089932.jpe
 const opinion = 'https://images.pexels.com/photos/1065084/pexels-photo-1065084.jpeg?auto=compress&cs=tinysrgb&w=1600';
 
 const Home = () => {
-    const [isBtnDisabled, setIsBtnDisabled] = useState(false)
+    const reservForm = useRef(null)
+    const [reservations, setReservations] = useState([]);
+    const [name, setName] = useState("");
+    const [date, setDate] = useState("");
+    const [hour, setHour] = useState("");
+    const [people, setPeople] = useState("");
+    const [count, setCount] = useState(0);
+
+
+
+    const addReservation = async (event) => {
+        event.preventDefault();
+
+        // Get user information
+        const formData = new FormData(reservForm.current)
+        const data = {
+            fecha: formData.get('date'),
+            hora: formData.get('time'),
+            nombre: formData.get('uname'),
+            numeroNinos: formData.get('kids'),
+            numeroPersonas: formData.get('dinners')
+        }
+        
+        try {
+            const docRef = await  addDoc(collection(db, "reservations"), data);
+            setCount(count + 1)
+            console.log(docRef.id);
+            reservForm.current.reset();
+        } catch(err) {
+            console.error("Error adding doc: ", err);
+        }
+    }
+    
+
+    const fetchPorst = async () => {
+        await getDocs(collection(db, "reservations")).then((querySnapshot) => {
+            const res = querySnapshot.docs.map((doc) => ({...doc.data(), id:doc.id}));
+            setReservations(res);
+        });
+    }
+
+    const reser = reservations.map((res) => {
+        return(
+            <div key={res.id} className="flex gap-4 justify-center my-2 hover:bg-slate-600">
+                <p className="font-bold">{res.nombre}</p>
+                <p>{res.fecha}</p>
+                <p>{res.hora} PM</p>
+            </div>
+        )
+    })
+
+    useEffect(() => {
+        fetchPorst();
+
+    }, [setCount])
 
     return (
         <div className="bg-slate-800 scroll-smooth">
             {/* First section */}
-            <div className="bg-[url('https://images.pexels.com/photos/8230019/pexels-photo-8230019.jpeg?auto=compress&cs=tinysrgb&w=1600')] h-screen bg-no-repeat bg-center bg-cover flex items-center text-white">
+            <div id="home" className="bg-[url('https://images.pexels.com/photos/8230019/pexels-photo-8230019.jpeg?auto=compress&cs=tinysrgb&w=1600')] h-screen bg-no-repeat bg-center bg-cover flex items-center text-white">
                 <div className="absolute backdrop-brightness-50 h-screen w-full flex items-center justify-center">
                     <div className="text-center">
                         <h1 className="text-6xl my-2">Taco-tástico</h1>
@@ -139,47 +195,68 @@ const Home = () => {
             </div>
 
             {/* Reservations section */}
-            <div className="h-screen">
+            <div id="reservation" className="h-screen">
                 <div className="w-4/5 h-full flex items-center mx-auto">
-                    <form action="" className="text-white text-xl flex flex-col w-1/2 mx-auto">
+                    <form action="/" ref={reservForm} className="text-white text-xl flex flex-col w-1/2 mx-auto">
                         <label htmlFor="date" className="text-white font-bold">Fecha <span className="text-red-500">*</span></label>
-                        <input type="date" className="text-black py-2 px-4 rounded-full mb-6 mt-2" />
+                        <input onChange={(e) => setDate(e.target.value)} type="date" name="date" className="text-black py-2 px-4 rounded-full mb-6 mt-2" />
 
-                        <label htmlFor="name" className="text-white font-bold">Nombre en la reserva <span className="text-red-500">*</span></label>
-                        <input type="text" placeholder="John Smith" className="text-black py-2 px-4 rounded-full mb-6 mt-2" />
+                        <label htmlFor="uname" className="text-white font-bold">Nombre en la reserva <span className="text-red-500">*</span></label>
+                        <input onChange={(e) => setName(e.target.value)} type="text" required name="uname" placeholder="John Smith" className="text-black py-2 px-4 rounded-full mb-6 mt-2" />
                         
                         <label htmlFor="dinners" className="text-white font-bold">Numero de personas <span className="text-red-500">*</span></label>
                         <div className="w-full flex gap-4 mb-6 mt-2">
-                            <select name="dinners" id="dinners" className="text-black py-2 px-4 bg-white rounded-full">
+                            <select name="dinners" onChange={(e) => setPeople(e.target.value)} id="dinners" className="text-black py-2 px-4 bg-white rounded-full">
+                                <option value=""> -- select</option>
                                 <option value="1">1 persona</option>
                                 <option value="2">2 personas</option>
                                 <option value="3">3 a 5 personas</option>
-                                <option value="4">Mas de 5 personas</option>
+                                <option value="5">Mas de 5 personas</option>
                             </select>
                             <select name="kids" id="kids" className="text-black py-2 bg-white px-4 rounded-full">
-                                <option value="1">0 niños</option>
-                                <option value="2">1 niño</option>
-                                <option value="3">2 niños</option>
-                                <option value="4">3 a 5 niños</option>
+                                <option value=""> -- select</option>
+                                <option value="0">0 niños</option>
+                                <option value="1">1 niño</option>
+                                <option value="2">2 niños</option>
+                                <option value="3">3 a 5 niños</option>
                                 <option value="5">Mas de 5 niños</option>
                             </select>
                         </div>
 
                         <label htmlFor="time" className="text-white font-bold">Hora de reserva <span className="text-red-500">*</span></label>
                         <div className="flex justify-start gap-6 items-center mb-6 mt-2">
-                            <select name="time" id="time" className="text-black py-2 bg-white px-4 rounded-full">
-                                <option value="1">10:00 AM</option>
-                                <option value="2">11:00 AM</option>
-                                <option value="3">12:00 PM</option>
-                                <option value="4">1:00 PM</option>
+                            <select name="time" id="time" onChange={(e) => setHour(e.target.value)} className="text-black py-2 bg-white px-4 rounded-full">
+                                <option value=""> -- select</option>
+                                <option value="10:00 AM">10:00 AM</option>
+                                <option value="11:00 AM">11:00 AM</option>
+                                <option value="12:00 PM">12:00 PM</option>
+                                <option value="1:00 PM">1:00 PM</option>
                             </select>
                             <p className="text-green-400">Table is available</p>
                         </div>
 
                         <div className="w-full flex justify-center my-6">
-                            { isBtnDisabled ? <button disabled className="bg-slate-200 p-2 w-1/3 rounded-full">Reservar</button> : <button className="bg-orange-500 p-2 w-1/3 rounded-full hover:bg-orange-400">Reservar</button>}
+                            {
+                                (
+                                    name !== "" &&
+                                    date !== "" &&
+                                    hour !== "" &&
+                                    people !== "" 
+                                )
+                                ? <button type="submit" className="bg-orange-500 p-2 w-1/3 rounded-full hover:bg-orange-400" onClick={ addReservation }>Reservar</button>
+                                : <button disabled className="bg-slate-200 p-2 w-1/3 rounded-full">Reservar</button>
+                            }
                         </div>
                     </form>
+                </div>
+            </div>
+
+            <div className="h-screen flex justify-center flex-col">
+                <div className="text-center">
+                    <h1 className="my-6"><span className="text-transparent text-6xl bg-clip-text bg-gradient-to-r from-orange-500 to-orange-200">Reservaciones</span></h1>
+                </div>
+                <div className="w-4/5 mx-auto bg-slate-700 rounded-2xl p-6">
+                    { reser }
                 </div>
             </div>
         </div>
