@@ -1,4 +1,5 @@
 import { Fade, Zoom } from "react-awesome-reveal";
+import { useState } from "react";
 
 // Images
 const gif = 'https://www.icegif.com/wp-content/uploads/2021/10/icegif-1130.gif';
@@ -10,6 +11,8 @@ const menu3 = 'https://images.pexels.com/photos/1089932/pexels-photo-1089932.jpe
 const opinion = 'https://images.pexels.com/photos/1065084/pexels-photo-1065084.jpeg?auto=compress&cs=tinysrgb&w=1600';
 
 const Home = () => {
+    const [isBtnDisabled, setIsBtnDisabled] = useState(false)
+
     return (
         <div className="bg-slate-800 scroll-smooth">
             {/* First section */}
@@ -137,23 +140,23 @@ const Home = () => {
 
             {/* Reservations section */}
             <div className="h-screen">
-                <div className="w-4/5 hfull">
-                    <form action="" className="text-white text-xl">
-                        <label htmlFor="date" className="text-white">Fecha <span className="text-red-500">*</span></label>
-                        <input type="date" />
+                <div className="w-4/5 h-full flex items-center mx-auto">
+                    <form action="" className="text-white text-xl flex flex-col w-1/2 mx-auto">
+                        <label htmlFor="date" className="text-white font-bold">Fecha <span className="text-red-500">*</span></label>
+                        <input type="date" className="text-black py-2 px-4 rounded-full mb-6 mt-2" />
 
-                        <label htmlFor="name">Nombre en la reserva</label>
-                        <input type="text" placeholder="John Smith" />
+                        <label htmlFor="name" className="text-white font-bold">Nombre en la reserva <span className="text-red-500">*</span></label>
+                        <input type="text" placeholder="John Smith" className="text-black py-2 px-4 rounded-full mb-6 mt-2" />
                         
-                        <label htmlFor="dinners">Numero de personas</label>
-                        <div>
-                            <select name="dinners" id="dinners">
+                        <label htmlFor="dinners" className="text-white font-bold">Numero de personas <span className="text-red-500">*</span></label>
+                        <div className="w-full flex gap-4 mb-6 mt-2">
+                            <select name="dinners" id="dinners" className="text-black py-2 px-4 bg-white rounded-full">
                                 <option value="1">1 persona</option>
                                 <option value="2">2 personas</option>
                                 <option value="3">3 a 5 personas</option>
                                 <option value="4">Mas de 5 personas</option>
                             </select>
-                            <select name="kids" id="kids">
+                            <select name="kids" id="kids" className="text-black py-2 bg-white px-4 rounded-full">
                                 <option value="1">0 niños</option>
                                 <option value="2">1 niño</option>
                                 <option value="3">2 niños</option>
@@ -161,18 +164,20 @@ const Home = () => {
                                 <option value="5">Mas de 5 niños</option>
                             </select>
                         </div>
-                        <div>
-                            <select name="time" id="time">
+
+                        <label htmlFor="time" className="text-white font-bold">Hora de reserva <span className="text-red-500">*</span></label>
+                        <div className="flex justify-start gap-6 items-center mb-6 mt-2">
+                            <select name="time" id="time" className="text-black py-2 bg-white px-4 rounded-full">
                                 <option value="1">10:00 AM</option>
                                 <option value="2">11:00 AM</option>
                                 <option value="3">12:00 PM</option>
                                 <option value="4">1:00 PM</option>
                             </select>
-                            <p>Table is vailable</p>
+                            <p className="text-green-400">Table is available</p>
                         </div>
 
-                        <div>
-                            <button>Reservar</button>
+                        <div className="w-full flex justify-center my-6">
+                            { isBtnDisabled ? <button disabled className="bg-slate-200 p-2 w-1/3 rounded-full">Reservar</button> : <button className="bg-orange-500 p-2 w-1/3 rounded-full hover:bg-orange-400">Reservar</button>}
                         </div>
                     </form>
                 </div>
