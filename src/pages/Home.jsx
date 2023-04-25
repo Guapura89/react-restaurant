@@ -2,6 +2,8 @@ import { Fade, Zoom } from "react-awesome-reveal";
 import { useState, useEffect, useRef } from "react";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import {db} from '../firebase';
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 // Images
 const gif = 'https://www.icegif.com/wp-content/uploads/2021/10/icegif-1130.gif';
@@ -21,7 +23,28 @@ const Home = () => {
     const [people, setPeople] = useState("");
     const [count, setCount] = useState(0);
 
-
+    
+    const notifySuccess = () => toast.success('Reservacion exitosa!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    
+    const notifyIncorrect = () => toast.error('Error al reservar!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
 
     const addReservation = async (event) => {
         event.preventDefault();
@@ -41,6 +64,7 @@ const Home = () => {
             setCount(count + 1)
             console.log(docRef.id);
             reservForm.current.reset();
+            notifySuccess();
         } catch(err) {
             console.error("Error adding doc: ", err);
         }
@@ -59,7 +83,7 @@ const Home = () => {
             <div key={res.id} className="flex gap-4 justify-center my-2 hover:bg-slate-600">
                 <p className="font-bold">{res.nombre}</p>
                 <p>{res.fecha}</p>
-                <p>{res.hora} PM</p>
+                <p>{res.hora}</p>
             </div>
         )
     })
