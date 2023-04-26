@@ -8,6 +8,9 @@ module.exports = {
       fontSize: {
         h1: "text-3xl",
       },
+      brightness: {
+        25: ".25",
+      },
     },
   },
   plugins: [

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import { Bars3Icon } from '@heroicons/react/24/solid'
 
 // images
 import logo from '../assets/logos/taco.png';
@@ -10,7 +10,7 @@ const Header = () => {
                 <div>
                     <Link to="/" className="flex flex-col items-center gap-2"><img src={ logo } alt="Taco logo" />Taco-tástico</Link>
                 </div>
-                <ul className="flex gap-20">
+                <ul className="hidden lg:flex gap-20">
                     <li className="hover:text-orange-500 font-bold">
                         <Link to="/">Inicio</Link>
                     </li>
@@ -24,6 +24,9 @@ const Header = () => {
                         <a href="#contact">Contacto</a>
                     </li>
                 </ul>
+                <div className="lg:hidden">
+                    <Bars3Icon className=" h-10 w-" />
+                </div>
             </nav>
         </div>
     );

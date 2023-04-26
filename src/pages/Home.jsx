@@ -67,6 +67,7 @@ const Home = () => {
             notifySuccess();
         } catch(err) {
             console.error("Error adding doc: ", err);
+            notifyIncorrect();
         }
     }
     
@@ -80,7 +81,7 @@ const Home = () => {
 
     const reser = reservations.map((res) => {
         return(
-            <div key={res.id} className="flex gap-4 justify-center my-2 hover:bg-slate-600">
+            <div key={res.id} className="flex gap-4 p-2 rounded-xl justify-center my-2 md:text-lg hover:bg-slate-600">
                 <p className="font-bold">{res.nombre}</p>
                 <p>{res.fecha}</p>
                 <p>{res.hora}</p>
@@ -91,7 +92,7 @@ const Home = () => {
     useEffect(() => {
         fetchPorst();
 
-    }, [setCount])
+    }, [])
 
     return (
         <div className="bg-slate-800 scroll-smooth">
@@ -99,8 +100,8 @@ const Home = () => {
             <div id="home" className="bg-[url('https://images.pexels.com/photos/8230019/pexels-photo-8230019.jpeg?auto=compress&cs=tinysrgb&w=1600')] h-screen bg-no-repeat bg-center bg-cover flex items-center text-white">
                 <div className="absolute backdrop-brightness-50 h-screen w-full flex items-center justify-center">
                     <div className="text-center">
-                        <h1 className="text-6xl my-2">Taco-tástico</h1>
-                        <p className="text-3xl">"El sabor auténtico de México en cada bocado"</p>
+                        <h1 className="text-5xl md:text-6xl my-2">Taco-tástico</h1>
+                        <p className="text-2xl md:text-3xl">"El sabor auténtico de México en cada bocado"</p>
                         <div className="w-full mx-auto my-10 flex justify-center">
                             <img src={gif} alt="taco-tastico" className="w-1/3" />
                         </div>
@@ -112,21 +113,21 @@ const Home = () => {
             </div>
 
             {/* Our story section */}
-            <div className="w-4/5 mx-auto p-10 h-screen">
-                <div className="flex justify-between h-full">
-                    <div className="w-1/2 h-full grid grid-cols-2 gap-4">
-                        <div className="grid grid-rows-3">
-                            <Fade triggerOnce direction="down" delay={300} className="row-span-2">
+            <div className="w-11/12 lg:w-4/5 mx-auto p-4 lg:p-10 h-screen">
+                <div className="flex flex-col md:flex-row justify-between h-full">
+                    <div className="w-full md:w-1/2 h-full grid grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4">
+                        <div className="grid lg:grid-rows-3">
+                            <Fade triggerOnce direction="down" delay={300} className="lg:row-span-2">
                                 <img className="w-full h-full rounded-2xl object-cover" src={friends} alt="" />
                             </Fade>
                         </div>
-                        <div className="grid grid-rows-3">
-                            <Fade triggerOnce direction="down" delay={300}  className="row-start-2 row-span-2">
+                        <div className="grid lg:grid-rows-3">
+                            <Fade triggerOnce direction="down" delay={300}  className="lg:row-start-2 lg:row-span-2">
                                 <img className="w-full h-full rounded-2xl object-cover" src={taqueria} alt="" />
                             </Fade>
                         </div>
                     </div>
-                    <div className="w-1/2 p-10">
+                    <div className="w-full order-first md:order-last md:w-1/2 p-4 lg:p-10">
                         <div className="h-full grid place-items-center">
                             <div className="text-justify">
                                 <h1 className="my-6"><span className="text-transparent text-6xl bg-clip-text bg-gradient-to-r from-orange-500 to-orange-200">Nuestra historia</span></h1>
@@ -139,14 +140,14 @@ const Home = () => {
             </div>
 
             {/* Menu section */}
-            <div id="menu" className="w-4/5 h-screen mx-auto p-10">
+            <div id="menu" className="w-full sm:w-4/5 mx-auto p-10">
                 <div className="text-center">
                     <h1 className="my-6"><span className="text-transparent text-6xl bg-clip-text bg-gradient-to-r from-orange-500 to-orange-200">Menu</span></h1>
                 </div>
-                <div className="grid grid-cols-3 gap-10 mt-14 h-4/6">
-                    <div className="w-full h-full rounded-2xl bg-white overflow-hidden">
-                        <div className="h-1/2 bg-black">
-                            <img className="w-full h-full object-cover" src={menu1} alt="" />
+                <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-6 lg:grid-cols-3">
+                    <div className="w-full h-[600px] rounded-2xl bg-white overflow-hidden">
+                        <div className="h-1/2">
+                            <img className="w-full h-full object-cover" src={menu1} alt="menu1" />
                         </div>
                         <div className="w-full h-1/2 p-8 text-black">
                             <p className="font-bold text-xl">Ordern de tacos</p>
@@ -159,9 +160,9 @@ const Home = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="w-full h-full rounded-2xl bg-white overflow-hidden">
-                        <div className="h-1/2 bg-black">
-                            <img className="w-full h-full object-cover" src={menu2} alt="" />
+                    <div className="w-full h-[600px] rounded-2xl bg-white overflow-hidden">
+                        <div className="h-1/2">
+                            <img className="w-full h-full object-cover" src={menu2} alt="menu2" />
                         </div>
                         <div className="w-full h-1/2 p-8 text-black">
                             <p className="font-bold text-xl">Orden familiar</p>
@@ -174,9 +175,9 @@ const Home = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="w-full h-full rounded-2xl bg-white overflow-hidden">
-                        <div className="h-1/2 bg-black">
-                            <img className="w-full h-full object-cover" src={menu3} alt="" />
+                    <div className="w-full h-[600px] rounded-2xl bg-white overflow-hidden">
+                        <div className="h-1/2">
+                            <img className="w-full h-full object-cover" src={menu3} alt="menu3" />
                         </div>
                         <div className="w-full h-1/2 p-8 text-black">
                             <p className="font-bold text-xl">Cubeta de cerveza</p>
@@ -192,15 +193,15 @@ const Home = () => {
 
             {/* Opinion section */}
             <div className="h-screen mx-auto flex items-center">
-                <div className="relative bg-[url('https://images.pexels.com/photos/1267697/pexels-photo-1267697.jpeg?auto=compress&cs=tinysrgb&w=1600')] backdrop:brightness-50 bg-center h-3/6 w-full">
-                    <div className="absolute backdrop-brightness-50 flex justify-center items-center w-full h-full">
-                        <div className="w-4/5 text-center">
+                <div className="relative bg-[url('https://images.pexels.com/photos/1267697/pexels-photo-1267697.jpeg?auto=compress&cs=tinysrgb&w=1600')] backdrop:brightness-50 bg-center h-5/6 md:h-3/6 w-full">
+                    <div className="absolute backdrop-brightness-25 flex justify-center items-center w-full h-full">
+                        <div className="w-full sm:w-4/5 text-center">
                             <h1 className="text-4xl">Que opina la gente de nosotros?</h1>
-                            <div className="flex items-center justify-center gap-6 my-6">
+                            <div className="flex flex-col md:flex-row items-center justify-center gap-6 my-6">
                                 <div className="w-[100px] h-[100px] rounded-full overflow-hidden">
                                     <img src={opinion} className="w-full h-full object-cover" alt="opinion person" />
                                 </div>
-                                <div className="w-1/2">
+                                <div className="w-11/12 md:w-1/2">
                                     <p>"La taquería en la que comí recientemente fue increíble. Los tacos estaban deliciosos, especialmente el de carne asada. La salsa que acompañaba a los tacos tenía un sabor auténtico y picante, justo como me gusta. Además, el servicio fue excelente y el ambiente del lugar era acogedor. Definitivamente volveré a visitar esta taquería y la recomendaré a mis amigos y familiares".</p>
                                 </div>
                             </div>
@@ -220,8 +221,8 @@ const Home = () => {
 
             {/* Reservations section */}
             <div id="reservation" className="h-screen">
-                <div className="w-4/5 h-full flex items-center mx-auto">
-                    <form action="/" ref={reservForm} className="text-white text-xl flex flex-col w-1/2 mx-auto">
+                <div className="w-11/12 md:w-4/5 h-full flex items-center mx-auto">
+                    <form action="/" ref={reservForm} className="text-white text-xl flex flex-col w-10/12 lg:w-1/2 mx-auto">
                         <label htmlFor="date" className="text-white font-bold">Fecha <span className="text-red-500">*</span></label>
                         <input onChange={(e) => setDate(e.target.value)} type="date" name="date" className="text-black py-2 px-4 rounded-full mb-6 mt-2" />
 
@@ -229,7 +230,7 @@ const Home = () => {
                         <input onChange={(e) => setName(e.target.value)} type="text" required name="uname" placeholder="John Smith" className="text-black py-2 px-4 rounded-full mb-6 mt-2" />
                         
                         <label htmlFor="dinners" className="text-white font-bold">Numero de personas <span className="text-red-500">*</span></label>
-                        <div className="w-full flex gap-4 mb-6 mt-2">
+                        <div className="w-full flex flex-col md:flex-row gap-4 mb-6 mt-2">
                             <select name="dinners" onChange={(e) => setPeople(e.target.value)} id="dinners" className="text-black py-2 px-4 bg-white rounded-full">
                                 <option value=""> -- select</option>
                                 <option value="1">1 persona</option>
@@ -268,7 +269,7 @@ const Home = () => {
                                     people !== "" 
                                 )
                                 ? <button type="submit" className="bg-orange-500 p-2 w-1/3 rounded-full hover:bg-orange-400" onClick={ addReservation }>Reservar</button>
-                                : <button disabled className="bg-slate-200 p-2 w-1/3 rounded-full">Reservar</button>
+                                : <button disabled className="bg-slate-200 p-2 w-1/2 md:w-1/3 rounded-full">Reservar</button>
                             }
                         </div>
                     </form>
@@ -277,9 +278,9 @@ const Home = () => {
 
             <div className="h-screen flex justify-center flex-col">
                 <div className="text-center">
-                    <h1 className="my-6"><span className="text-transparent text-6xl bg-clip-text bg-gradient-to-r from-orange-500 to-orange-200">Reservaciones</span></h1>
+                    <h1 className="mb-6"><span className="text-transparent text-5xl md:text-6xl bg-clip-text bg-gradient-to-r from-orange-500 to-orange-200">Reservaciones</span></h1>
                 </div>
-                <div className="w-4/5 mx-auto bg-slate-700 rounded-2xl p-6">
+                <div className="w-11/12 md:w-4/5 mx-auto bg-slate-700 rounded-2xl p-6">
                     { reser }
                 </div>
             </div>
