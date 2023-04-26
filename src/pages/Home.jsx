@@ -1,4 +1,4 @@
-import { Fade, Zoom } from "react-awesome-reveal";
+import { Fade } from "react-awesome-reveal";
 import { useState, useEffect, useRef } from "react";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import {db} from '../firebase';
@@ -144,51 +144,53 @@ const Home = () => {
                 <div className="text-center">
                     <h1 className="my-6"><span className="text-transparent text-6xl bg-clip-text bg-gradient-to-r from-orange-500 to-orange-200">Menu</span></h1>
                 </div>
-                <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-6 lg:grid-cols-3">
-                    <div className="w-full h-[600px] rounded-2xl bg-white overflow-hidden">
-                        <div className="h-1/2">
-                            <img className="w-full h-full object-cover" src={menu1} alt="menu1" />
-                        </div>
-                        <div className="w-full h-1/2 p-8 text-black">
-                            <p className="font-bold text-xl">Ordern de tacos</p>
-                            <p>$150</p>
+                <Fade triggerOnce direction="up">
+                    <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-6 lg:grid-cols-3">
+                        <div className="w-full h-[600px] rounded-2xl bg-white overflow-hidden">
+                            <div className="h-1/2">
+                                <img className="w-full h-full object-cover" src={menu1} alt="menu1" />
+                            </div>
+                            <div className="w-full h-1/2 p-8 text-black">
+                                <p className="font-bold text-xl">Ordern de tacos</p>
+                                <p>$150</p>
 
-                            <ul className="mt-4">
-                                <li> - Salsas y limones incluidos.</li>
-                                <li> - Hasta 2 tipos de tacos (Pastor, Arrachera, Bistech, Tripitas).</li>
-                                <li> - Sin bebidas</li>
-                            </ul>
+                                <ul className="mt-4">
+                                    <li> - Salsas y limones incluidos.</li>
+                                    <li> - Hasta 2 tipos de tacos (Pastor, Arrachera, Bistech, Tripitas).</li>
+                                    <li> - Sin bebidas</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="w-full h-[600px] rounded-2xl bg-white overflow-hidden">
+                            <div className="h-1/2">
+                                <img className="w-full h-full object-cover" src={menu2} alt="menu2" />
+                            </div>
+                            <div className="w-full h-1/2 p-8 text-black">
+                                <p className="font-bold text-xl">Orden familiar</p>
+                                <p>$450</p>
+
+                                <ul className="mt-4">
+                                    <li> - 3 ordenes de tacos</li>
+                                    <li> - Eleccion al gusto.</li>
+                                    <li> - Refrescos o aguas de sdabor incluidas</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="w-full h-[600px] rounded-2xl bg-white overflow-hidden">
+                            <div className="h-1/2">
+                                <img className="w-full h-full object-cover" src={menu3} alt="menu3" />
+                            </div>
+                            <div className="w-full h-1/2 p-8 text-black">
+                                <p className="font-bold text-xl">Cubeta de cerveza</p>
+                                <p>$250</p>
+
+                                <ul className="mt-4">
+                                    <li> - Cubeta con 6 cervezas de su eleccion</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <div className="w-full h-[600px] rounded-2xl bg-white overflow-hidden">
-                        <div className="h-1/2">
-                            <img className="w-full h-full object-cover" src={menu2} alt="menu2" />
-                        </div>
-                        <div className="w-full h-1/2 p-8 text-black">
-                            <p className="font-bold text-xl">Orden familiar</p>
-                            <p>$450</p>
-
-                            <ul className="mt-4">
-                                <li> - 3 ordenes de tacos</li>
-                                <li> - Eleccion al gusto.</li>
-                                <li> - Refrescos o aguas de sdabor incluidas</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="w-full h-[600px] rounded-2xl bg-white overflow-hidden">
-                        <div className="h-1/2">
-                            <img className="w-full h-full object-cover" src={menu3} alt="menu3" />
-                        </div>
-                        <div className="w-full h-1/2 p-8 text-black">
-                            <p className="font-bold text-xl">Cubeta de cerveza</p>
-                            <p>$250</p>
-
-                            <ul className="mt-4">
-                                <li> - Cubeta con 6 cervezas de su eleccion</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                </Fade>
             </div>
 
             {/* Opinion section */}
